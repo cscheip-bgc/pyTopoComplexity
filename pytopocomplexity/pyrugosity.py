@@ -302,6 +302,9 @@ class RugosityIndex:
         self.chunksize = chunksize
         self.slope_correction = slope_correction
 
+        # Get the z units and apply conversions if necessary
+        # NOTE: This requires a CRS that has defined z-units (e.g., State Plane) and fails for other CRSs (e.g., UTM)
+        #TODO: Include an override for defining units from user so e.g., UTM CRS works
         with rasterio.open(input_dir) as src:
             self.meta = src.meta.copy()
             self.Z = src.read(1)
